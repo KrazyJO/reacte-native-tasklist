@@ -5,41 +5,51 @@
  */
 
 import React, { Component } from 'react';
-import { AppRegistry, Text, View } from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, Button, Alert } from 'react-native';
 
-class Blink extends Component {
+export default class ButtonBasics extends Component {
+  
   constructor(props) {
     super(props);
-    this.state = {showText : true};
-
-    setInterval(() => {
-      this.setState(previousState => {
-        return {showText : !previousState.showText};
-      });
-    }, 1000);
+    this.onButtonPress.bind(this);
   }
 
-  render() {
-    let display = this.state.showText ? this.props.text : ' ';
-    return (
-      <Text>{display}</Text>
-    );
+  onButtonPress() {
+    Alert.alert("You tapped the Button");
   }
-}
-
-export default class BlinkApp extends Component {
+  
   render() {
     return (
-      <View>
-        <Blink text="I love to blink"></Blink>
-        <Blink text="Yes blinking is so great!"></Blink>
-        <Blink text="Why did they ever take this out of HTML"/>
-        <Blink text="Look at me look at me loog at me" />
-        <Blink text="we now try hot loading :)" />
+      <View style={style.container}>
+        <View style={style.buttonContainer}>
+          <Button onPress={this.onButtonPress} title="Press me!" />
+        </View>
+        <View style={style.buttonContainer}>
+          <Button onPress={this.onButtonPress} title="Press me!" />
+        </View>
+        <View style={style.alternativeLayoutButtonContainer}>
+          <Button onPress={this.onButtonPress} title="This looks great!" />
+          <Button onPress={this.onButtonPress} title="OK!" color="#841584" />
+        </View>
       </View>
     );
   }
 }
 
+const style = StyleSheet.create({
+  container: {
+   flex: 1,
+   justifyContent: 'center',
+  },
+  buttonContainer: {
+    margin: 20
+  },
+  alternativeLayoutButtonContainer: {
+    margin: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
+})
+
 // skip this line if using Create React Native App
-AppRegistry.registerComponent('AwesomeProject', () => BlinkApp);
+AppRegistry.registerComponent('AwesomeProject', () => ButtonBasics);
